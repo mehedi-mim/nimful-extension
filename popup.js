@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
     enterText.style.display = "inline";
   });
 
-
   function sendRequest(seed) {
     // Implement your logic to send a GET request to the API endpoint here
     // Example implementation:
@@ -72,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Save the seed to local storage
         localStorage.setItem("seed", seed);
+        chrome.storage.local.set({ "seed": seed }, function() {});
       })
       .catch(error => {
         // Handle the error

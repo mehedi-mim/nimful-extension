@@ -1,19 +1,19 @@
 {
-    "manifest_version": 3,
-    "name": "Nimful",
-    "version": "1.0",
-    "description": "Interacts with nimful's wordcloud",
-    "action": {
-      "default_popup": "popup.html"
-    },
-    "permissions": [
-      "activeTab"
-    ],
-    "host_permissions": [
-      "https://api.example.com/"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    }
+  "manifest_version": 3,
+  "name": "Nimful",
+  "version": "1.0",
+  "description": "Interacts with nimful's wordcloud",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.example.com/"
+  ],
+  "background": {
+    "service_worker": "background.js"
   }
-  
+}
