@@ -1,12 +1,10 @@
-// Function to extract the domain from the URL
 function extractDomain(url) {
-  return url;
+  var domain = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/im);
+  return domain ? domain[1] : null;
 }
 
 // Function to send the request
 function sendRequest(seed, domain) {
-  // Implement your logic to send a POST request to the API endpoint here
-  // Example implementation:
   var apiUrl = "http://localhost:8080/api/v1/create-domain-visit";
 
   fetch(apiUrl, {
@@ -18,10 +16,8 @@ function sendRequest(seed, domain) {
   })
     .then(response => {
       if (response.ok) {
-        // Request successful
         console.log("Request successful");
       } else {
-        // Request failed
         console.error("Failed to send request:", response.status, response.statusText);
       }
     })
@@ -30,38 +26,28 @@ function sendRequest(seed, domain) {
     });
 }
 
-// Function to handle tab updates
 function handleTabUpdate(tabId, changeInfo, tab) {
-  // Check if the URL is updated
   if (changeInfo.url) {
-    // Retrieve the seed value from storage
     chrome.storage.local.get('seed', function(data) {
       var seed = data.seed;
-
-      // Send a POST request with the seed and domain
-      if (seed) {
-        sendRequest(seed, extractDomain(changeInfo.url));
+      var domain = extractDomain(changeInfo.url)
+      if (seed && domain) {
+        console.log(domain + ":" +"From handleTabUpdate." )
+        sendRequest(seed, domain);
       }
     });
   }
 }
 
-// Function to handle tab activation
 function handleTabActivated(activeInfo) {
-  // Retrieve the seed value from storage
   chrome.storage.local.get('seed', function(data) {
     var seed = data.seed;
-
-    // Get the current active tab
     chrome.tabs.get(activeInfo.tabId, function(tab) {
-      // Check if a valid tab object is present
       if (tab && tab.url) {
         var url = tab.url;
         var domain = extractDomain(url);
-        console.log(domain);
-
-        // Send a POST request with the seed and domain
-        if (seed) {
+        if (seed && domain) {
+          console.log(domain + ":" +"From handleTabActivated." )
           sendRequest(seed, domain);
         }
       }
@@ -70,10 +56,10 @@ function handleTabActivated(activeInfo) {
 }
 
 // Start checking the URL every few seconds if a seed is found
-chrome.storage.local.get('seed', function(data) {
-  var seed = data.seed;
-  if (seed) {
-    setInterval(function() {
+function intervalFunction() {
+  chrome.storage.local.get('seed', function(data) {
+    var seed = data.seed;
+    if (seed) {
       // Get the current active tab
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var tab = tabs[0];
@@ -81,16 +67,17 @@ chrome.storage.local.get('seed', function(data) {
         // Check if a valid tab object is present
         if (tab && tab.url) {
           var url = tab.url;
-          var domain = extractDomain(url);
-          console.log(domain);
-
-          // Send a POST request with the seed and domain
-          sendRequest(seed, domain);
-        }
+          var domain = extractDomain(url)
+          if (seed && domain) {
+            console.log(domain + ":" +"From intervalFunction." )
+            sendRequest(seed, domain);
+          }}
       });
-    }, 3000); // Change the interval (in milliseconds) as needed
-  }
-});
+    }
+  });
+}
+
+setInterval(intervalFunction, 60000); // Call the interval function every 3 seconds
 
 // Register event listener for tab updates
 chrome.tabs.onUpdated.addListener(handleTabUpdate);
