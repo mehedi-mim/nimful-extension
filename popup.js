@@ -6,10 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var output = document.getElementById("output");
   var enterText = document.getElementById("enterText");
 
-  // Load the seed from local storage if it exists
   var seed = localStorage.getItem("seed");
   if (seed) {
-    output.textContent = "Connected..!";
+    output.textContent = "Your are connected..!";
     submitButton.style.display = "none";
     generateSeedButton.style.display = "none";
     refreshButton.style.display = "inline";
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   generateSeedButton.addEventListener("click", function () {
-    var newTabUrl = "http://localhost:3000";
+    var newTabUrl = "http://localhost:3000/profile";
     chrome.tabs.create({ url: newTabUrl });
   });
 
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .then((data) => {
-        output.textContent = "Connected..!";
+        output.textContent = "Your are connected..!";
         submitButton.style.display = "none";
         generateSeedButton.style.display = "none";
         refreshButton.style.display = "inline";

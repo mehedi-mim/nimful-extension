@@ -26,3 +26,13 @@ body {
     font-weight: bold;
   }
   
+  #generateSeedButton{
+    color: greenyellow;
+  }
+  #refreshButton{
+    color: rgb(255, 145, 0);
+  }
+
+  #submitButton{
+    color: rgb(22, 193, 223);
+  }
