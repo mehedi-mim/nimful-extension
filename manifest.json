@@ -22,7 +22,7 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://api.example.com/"
+    "https://nimful.com"
   ],
   "background": {
     "service_worker": "background.js"

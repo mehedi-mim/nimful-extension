@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   generateSeedButton.addEventListener("click", function () {
-    var newTabUrl = "http://localhost:3000/profile";
+    var newTabUrl = "https://nimful.com/profile";
     chrome.tabs.create({ url: newTabUrl });
   });
 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function sendRequest(seed) {
     var apiUrl =
-      "http://localhost:8080/api/v1/verify-seed?seed=" +
+      "https://nimful.com/api/v1/verify-seed?seed=" +
       encodeURIComponent(seed);
 
     fetch(apiUrl)

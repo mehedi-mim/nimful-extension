@@ -5,7 +5,7 @@ function extractDomain(url) {
 
 // Function to send the request
 function sendRequest(seed, domain) {
-  var apiUrl = "http://localhost:8080/api/v1/create-domain-visit";
+  var apiUrl = "https://nimful.com/api/v1/create-domain-visit";
 
   fetch(apiUrl, {
     method: "POST",
