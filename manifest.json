@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Nimful",
-  "version": "1.0",
+  "version": "3.0",
   "description": "Interacts with nimful's wordcloud",
   "icons": {
     "16": "images/real16.png",
@@ -22,7 +22,7 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://nimful.com"
+    "https://nimful.com/"
   ],
   "background": {
     "service_worker": "background.js"
